@@ -7,10 +7,24 @@ public class Solution {
     // Complete the countApplesAndOranges function below.
     static void countApplesAndOranges(int s, int t, int a, int b, int[] apples, int[] oranges) {
 
-    	
+    	System.out.println("Maça:" + getNumbersOfFuitOnTheHouse(s, t, a, apples) + "\n");
+    	System.out.println("Laranja:" + getNumbersOfFuitOnTheHouse(s, t, b, oranges));
     }
     
-    private boolean isBetween(int fruitPosition, int s, int t) {
+    private static int getNumbersOfFuitOnTheHouse(int s, int t, int treePosition,int[] fruits) {
+    	
+    	int amount = 0;
+    	
+    	for(int fruitPosition : fruits) {
+    		
+    		int relativeFruitPosition = treePosition + fruitPosition;
+    		if (isBetween(relativeFruitPosition, s, t)) amount++;
+    	}
+    	
+    	return amount;
+    }
+    
+    private static boolean isBetween(int fruitPosition, int s, int t) {
     	return fruitPosition <= s && fruitPosition >= t;
     }
 
