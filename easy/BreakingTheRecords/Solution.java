@@ -1,7 +1,10 @@
 package BreakingTheRecords;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 
 public class Solution {
@@ -9,18 +12,50 @@ public class Solution {
     // Complete the breakingRecords function below.
     static int[] breakingRecords(int[] scores) {
     	
-    	int bestRecords = countBestRecords(scores);
-    	int worstRecords = countWorstRecords(scores);
+    	List<Integer> newScores  = Arrays.stream(scores).boxed().collect(Collectors.toList());
+    	
+    	int bestRecords = countBestRecords(newScores);
+    	int worstRecords = countWorstRecords(newScores);
     	
     	return new int[]{bestRecords, worstRecords};
     }
-
-    private static int countWorstRecords(int[] scores) {
-		return 0;
+    
+	private static int countWorstRecords(List<Integer> scores) {
+		
+		Integer lastValor = null;
+		Integer counter = 0;
+						
+		for(Integer actualValor: scores) {
+			
+			if(lastValor == null) {
+				lastValor = actualValor;
+				
+			}else if(lastValor > actualValor) {
+				lastValor = actualValor;
+				counter++;
+			}
+		}
+		
+		return counter;
 	}
 
-	private static int countBestRecords(int[] scores) {
-		return 0;
+	private static int countBestRecords(List<Integer> scores) {
+		
+		Integer lastValor = null;
+		Integer counter = 0;
+		
+		for(Integer actualValor: scores) {
+			
+			if(lastValor == null) {
+				lastValor = actualValor;
+				
+			}else if(lastValor < actualValor) {
+				lastValor = actualValor;
+				counter++;
+			}
+		}
+		
+		return counter;
 	}
 
 	private static final Scanner scanner = new Scanner(System.in);
